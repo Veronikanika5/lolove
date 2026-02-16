@@ -14,17 +14,17 @@ body {
     align-items: center;
     flex-direction: column;
     font-family: 'Comic Sans MS', cursive;
-    transition: background-image 1s ease-in-out;
-    background-size: cover;
-    background-position: center;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    transition: background 1s ease-in-out;
 }
 
 .overlay {
-    background: rgba(255,255,255,0.85);
-    padding: 30px;
+    background: rgba(255,255,255,0.9);
+    padding: 35px;
     border-radius: 25px;
     text-align: center;
     animation: fadeIn 1s ease;
+    box-shadow: 0 0 30px rgba(0,0,0,0.2);
 }
 
 h1 {
@@ -69,7 +69,6 @@ button:hover {
 
 .heart {
     position: fixed;
-    color: red;
     animation: float 4s linear infinite;
 }
 
@@ -98,14 +97,15 @@ button:hover {
 
 <script>
 
-// 🔥 ЗДЕСЬ ТЫ МОЖЕШЬ МЕНЯТЬ ФОНЫ
-const backgrounds = [
-"https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
-"https://images.unsplash.com/photo-1492724441997-5dc865305da7",
-"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
-"https://images.unsplash.com/photo-1470770841072-f978cf4d019e",
-"https://images.unsplash.com/photo-1501785888041-af3ef285b470"
+// 🎨 ГРАДИЕНТЫ (меняются автоматически)
+const gradients = [
+"linear-gradient(135deg, #ff9a9e, #fad0c4)",
+"linear-gradient(135deg, #a18cd1, #fbc2eb)",
+"linear-gradient(135deg, #f6d365, #fda085)",
+"linear-gradient(135deg, #84fab0, #8fd3f4)",
+"linear-gradient(135deg, #ff758c, #ff7eb3)"
 ];
+
 
 const funnyPhrases = [
 "НЕПРАВИЛЬНО 😂",
@@ -128,7 +128,7 @@ const questions = [
 { text: "Будем смотреть фильм вместе? 🍿", answers: ["Дааа ❤️", "Нет"] },
 { text: "Будешь меня обнимать? 🤗", answers: ["Всегда 💖", "Нет"] },
 { text: "Я самая лучшая? 😏", answers: ["Естественно 😌", "Нет"] },
-{ text: "Будешь носить меня на ручках? 😆", answers: ["Да, моя принцесса 👑", "Нет"] },
+{ text: "Будешь носить меня на ручках? 😆", answers: ["Да, принцесса 👑", "Нет"] },
 { text: "Любишь мои глупости? 😂", answers: ["Обожаю 😁", "Нет"] },
 { text: "Будешь терпеть меня, когда я вредничаю? 😅", answers: ["С удовольствием 💕", "Нет"] },
 { text: "Ты счастлив со мной? 🥰", answers: ["Самый счастливый ❤️", "Нет"] }
@@ -146,8 +146,7 @@ function startGame() {
 }
 
 function changeBackground() {
-    const bg = backgrounds[currentQuestion % backgrounds.length];
-    document.body.style.backgroundImage = `url('${bg}')`;
+    document.body.style.background = gradients[currentQuestion % gradients.length];
 }
 
 function showQuestion() {
@@ -191,7 +190,7 @@ function nextQuestion() {
 }
 
 function showFinal() {
-    questionEl.innerHTML = "Ты прошёл тест 😍❤️<br>Теперь ты обязан поцеловать меня 💋";
+    questionEl.innerHTML = "Ты прошёл тест 😍❤️<br><br>Теперь ты обязан поцеловать меня 💋";
     buttonsEl.innerHTML = "";
     createHearts();
 }
