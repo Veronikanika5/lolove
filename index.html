@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Только для Саши ❤️</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: 'Comic Sans MS', cursive;
+    background-size: cover;
+    background-position: center;
+}
+
+.overlay {
+    background: rgba(255,255,255,0.8);
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+}
+
+h1 {
+    color: #ff2e63;
+}
+
+button {
+    padding: 15px 30px;
+    font-size: 18px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    margin: 10px;
+    transition: 0.3s;
+}
+
+.correct {
+    background-color: #ff2e63;
+    color: white;
+}
+
+.wrong {
+    background-color: white;
+    color: #ff2e63;
+    position: relative;
+}
+
+button:hover {
+    transform: scale(1.15);
+}
+
+.heart {
+    position: fixed;
+    color: red;
+    font-size: 20px;
+    animation: float 4s linear infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(0); opacity: 1;}
+    100% { transform: translateY(-100vh); opacity: 0;}
+}
+
+#game {
+    display: none;
+}
+</style>
+</head>
+
+<body style="background-image: url('https://i.imgur.com/4M7IWwP.jpeg');">
+
+<div id="startScreen" class="overlay">
+    <h1>Если ты не мой Саша — уходите!! 😏</h1>
+    <button onclick="startGame()">Это я, твой Саша ❤️</button>
+</div>
+
+<div id="game" class="overlay">
+    <h1 id="question"></h1>
+    <div id="buttons"></div>
+</div>
+
+<script>
+
+const funnyPhrases = [
+"НЕПРАВИЛЬНО 😂",
+"Так не работает 😏",
+"Попробуй ещё раз 😜",
+"Я всё равно знаю ответ 😌",
+"Ты ошибся 😁",
+"Нееееет 😆"
+];
+
+const questions = [
+{ text: "Ты меня любишь? ❤️", answers: ["Безумно ❤️", "Нет"] },
+{ text: "Ты скучаешь по мне? 🥺", answers: ["Каждую секунду 💕", "Нет"] },
+{ text: "Пойдёшь со мной на свидание? 💋", answers: ["Конечно 😍", "Нет"] },
+{ text: "Будем смотреть фильм вместе? 🍿", answers: ["Дааа ❤️", "Нет"] },
+{ text: "Будешь меня обнимать? 🤗", answers: ["Всегда 💖", "Нет"] },
+{ text: "Я самая лучшая? 😏", answers: ["Естественно 😌", "Нет"] },
+{ text: "Ты мой навсегда? 💍", answers: ["Навсегда ❤️", "Нет"] },
+{ text: "Любишь мои глупости? 😂", answers: ["Обожаю 😁", "Нет"] },
+{ text: "Будешь терпеть меня? 😅", answers: ["С удовольствием 💕", "Нет"] },
+{ text: "Ты счастлив со мной? 🥰", answers: ["Самый счастливый ❤️", "Нет"] }
+];
+
+let currentQuestion = 0;
+const questionEl = document.getElementById("question");
+const buttonsEl = document.getElementById("buttons");
+
+function startGame() {
+    document.getElementById("startScreen").style.display = "none";
+    document.getElementById("game").style.display = "block";
+    showQuestion();
+}
+
+function showQuestion() {
+    buttonsEl.innerHTML = "";
+    questionEl.innerText = questions[currentQuestion].text;
+
+    questions[currentQuestion].answers.forEach((answer, index) => {
+        const btn = document.createElement("button");
+        btn.innerText = answer;
+
+        if (index === 0) {
+            btn.classList.add("correct");
+            btn.onclick = nextQuestion;
+        } else {
+            btn.classList.add("wrong");
+            btn.onmouseover = () => {
+                const x = Math.random() * (window.innerWidth - 150);
+                const y = Math.random() * (window.innerHeight - 50);
+                btn.style.position = "absolute";
+                btn.style.left = x + "px";
+                btn.style.top = y + "px";
+                btn.innerText = funnyPhrases[Math.floor(Math.random() * funnyPhrases.length)];
+            };
+        }
+
+        buttonsEl.appendChild(btn);
+    });
+}
+
+function nextQuestion() {
+    currentQuestion++;
+    if (currentQuestion < questions.length) {
+        showQuestion();
+    } else {
+        questionEl.innerText = "Ты прошёл тест 😍❤️";
+        buttonsEl.innerHTML = "";
+        createHearts();
+    }
+}
+
+function createHearts() {
+    for (let i = 0; i < 100; i++) {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.fontSize = (Math.random() * 30 + 10) + "px";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 4000);
+    }
+}
+
+</script>
+</body>
+</html>
