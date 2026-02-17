@@ -15,18 +15,20 @@ body {
     flex-direction: column;
     font-family: 'Comic Sans MS', cursive;
 
-    background: url("https://i.yapx.ru/Grj9g.gif") no-repeat center center fixed;
     background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     transition: background 0.8s ease-in-out;
 }
 
-/* затемнение фона для читаемости */
+/* затемнение для читаемости */
 body::before {
     content: "";
     position: fixed;
     inset: 0;
     background: rgba(0, 0, 0, 0.35);
     pointer-events: none;
+    z-index: 0;
 }
 
 .overlay {
@@ -110,9 +112,18 @@ button:hover {
 
 <script>
 
-// 💖 СЮДА МОЖНО ДОБАВИТЬ НЕСКОЛЬКО GIF
+// 💖 GIF ДЛЯ КАЖДОГО ВОПРОСА
 const backgrounds = [
-"https://i.yapx.ru/Grj9g.gif"
+"https://i.yapx.ru/Grj9g.gif",   // 1
+"https://i.gifer.com/7efs.gif", // 2
+"https://i.gifer.com/VAyR.gif", // 3
+"https://i.gifer.com/ZZ5H.gif", // 4
+"https://i.gifer.com/2iiJ.gif", // 5
+"https://i.gifer.com/6ob.gif",  // 6
+"https://i.gifer.com/Lx0q.gif", // 7
+"https://i.gifer.com/embedded/download/ZR5l.gif", // 8
+"https://i.gifer.com/4SHX.gif", // 9
+"https://i.gifer.com/7VE.gif"   // 10
 ];
 
 const funnyPhrases = [
@@ -148,8 +159,7 @@ const buttonsEl = document.getElementById("buttons");
 
 function changeBackground() {
     document.body.style.background = 
-        `url("${backgrounds[currentQuestion % backgrounds.length]}") no-repeat center center fixed`;
-    document.body.style.backgroundSize = "cover";
+        `url("${backgrounds[currentQuestion]}") center/cover no-repeat fixed`;
 }
 
 function startGame() {
