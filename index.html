@@ -15,7 +15,7 @@ body {
     flex-direction: column;
     font-family: 'Comic Sans MS', cursive;
 
-    background-size: cover;
+    background-size: contain;       /* Показываем всю GIF полностью */
     background-position: center;
     background-repeat: no-repeat;
     transition: background 0.8s ease-in-out;
@@ -176,7 +176,7 @@ const buttonsEl = document.getElementById("buttons");
 
 function changeBackground() {
     document.body.style.background = 
-        `url("${backgrounds[currentQuestion]}") center/cover no-repeat fixed`;
+        `url("${backgrounds[currentQuestion]}") center/contain no-repeat fixed`;
 }
 
 function startGame() {
@@ -248,7 +248,6 @@ function showFinal() {
         setTimeout(() => heart.remove(), 5000);
     }
 }
-
 </script>
 
 </body>
