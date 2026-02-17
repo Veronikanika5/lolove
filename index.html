@@ -21,7 +21,7 @@ body {
     transition: background 0.8s ease-in-out;
 }
 
-/* затемнение для читаемости */
+/* затемнение для читаемости текста */
 body::before {
     content: "";
     position: fixed;
@@ -81,7 +81,7 @@ button:hover {
     to {transform: translateY(0); opacity:1;}
 }
 
-.heart {
+.heart, .star {
     position: fixed;
     animation: float 4s linear infinite;
     z-index: 2;
@@ -94,6 +94,21 @@ button:hover {
 
 #game {
     display: none;
+}
+
+.final-text {
+    color: #ff2e63;
+    font-size: 36px;
+    font-weight: bold;
+    text-shadow: 0 0 20px #fff;
+    animation: pop 1s ease forwards;
+    opacity: 0;
+}
+
+@keyframes pop {
+    0% { transform: scale(0.5); opacity: 0; }
+    60% { transform: scale(1.2); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
 }
 </style>
 </head>
@@ -111,19 +126,21 @@ button:hover {
 </div>
 
 <script>
-
-// 💖 GIF ДЛЯ КАЖДОГО ВОПРОСА
+// GIF для каждого вопроса
 const backgrounds = [
-"https://i.yapx.ru/Grj9g.gif",   // 1
-"https://www.bing.com/images/search?view=detailV2&ccid=WsB8lHQB&id=90C27491BE74F277FE95B32936E3C3F7A1EA6431&thid=OIP.WsB8lHQBVPcda9qTOaXHswHaHa&mediaurl=https%3a%2f%2fwebstockreview.net%2fimages%2fclipart-cat-animated-gif-8.gif&cdnurl=https%3a%2f%2fth.bing.com%2fth%2fid%2fR.5ac07c94740154f71d6bda9339a5c7b3%3frik%3dMWTqoffD4zYpsw%26pid%3dImgRaw%26r%3d0&exph=1500&expw=1500&q=%d0%93%d0%b8%d1%84%d0%ba%d0%b8+%d0%91%d0%b5%d0%b7+%d0%97%d0%b0%d0%b4%d0%bd%d0%b5%d0%b3%d0%be+%d0%a4%d0%be%d0%bd%d0%b0&FORM=IRPRST&ck=FA89D34E38F0A304D44576F5688C983F&selectedIndex=5&itb=0", // 2
-"https://i.gifer.com/VAyR.gif", // 3
-"https://i.gifer.com/ZZ5H.gif", // 4
-"https://i.gifer.com/2iiJ.gif", // 5
-"https://i.gifer.com/6ob.gif",  // 6
-"https://i.gifer.com/Lx0q.gif", // 7
-"https://i.gifer.com/embedded/download/ZR5l.gif", // 8
-"https://i.gifer.com/4SHX.gif", // 9
-"https://i.gifer.com/7VE.gif"   // 10
+"https://i.yapx.ru/Grj9g.gif",                     
+"https://webstockreview.net/images/clipart-cat-animated-gif-8.gif", 
+"https://i.pinimg.com/originals/b4/ab/26/b4ab265b85e6967f2059d0ca14646fd6.gif", 
+"https://media.tenor.com/dStJVtPNiTUAAAAC/adventuretime-jake.gif",  
+"https://media1.tenor.com/m/XXp0jOxwfD8AAAAC/jake-scream.gif",      
+"https://i.gifer.com/7efs.gif", 
+"https://i.gifer.com/VAyR.gif", 
+"https://i.gifer.com/ZZ5H.gif", 
+"https://i.gifer.com/2iiJ.gif", 
+"https://i.gifer.com/6ob.gif",  
+"https://media.tenor.com/1snEvE1Gv-IAAAAC/bailar-jake.gif",
+"https://media1.tenor.com/images/be3be2f37708b90e41357c79d395dea8/tenor.gif?itemid=4893306",
+"https://c.tenor.com/7cAOc2fKOcEAAAAM/adventure-time.gif"
 ];
 
 const funnyPhrases = [
@@ -209,21 +226,26 @@ function nextQuestion() {
     }
 }
 
+// 💖 Финал с эффектом вау
 function showFinal() {
-    questionEl.innerHTML = "Ты прошёл тест 😍❤️<br><br>Теперь ты обязан поцеловать меня 💋";
+    questionEl.innerHTML = "";
     buttonsEl.innerHTML = "";
-    createHearts();
-}
 
-function createHearts() {
-    for (let i = 0; i < 120; i++) {
+    const finalText = document.createElement("div");
+    finalText.classList.add("final-text");
+    finalText.innerHTML = "Ты прошёл тест 😍❤️<br>Теперь ты обязан поцеловать меня 💋";
+    document.getElementById("game").appendChild(finalText);
+
+    // Создаём множество сердец
+    for (let i = 0; i < 150; i++) {
         const heart = document.createElement("div");
         heart.classList.add("heart");
         heart.innerHTML = "❤️";
         heart.style.left = Math.random() * 100 + "vw";
-        heart.style.fontSize = (Math.random() * 30 + 15) + "px";
+        heart.style.fontSize = (Math.random() * 25 + 15) + "px";
+        heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
         document.body.appendChild(heart);
-        setTimeout(() => heart.remove(), 4000);
+        setTimeout(() => heart.remove(), 5000);
     }
 }
 
